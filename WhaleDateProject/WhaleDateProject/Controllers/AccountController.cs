@@ -151,7 +151,7 @@ namespace WhaleDateProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Surname, Email = model.Email, Surname = model.Surname, Lastname = model.Lastname, Gender = model.Gender, InterestedIn = model.InterestedIn };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Surname = model.Surname, Lastname = model.Lastname, Gender = model.Gender, InterestedIn = model.InterestedIn };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
