@@ -75,10 +75,25 @@ namespace WhaleDateProject.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "he")]
+        [Display(Name = "Password")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string Surname { get; set; }
+
+        [Required]
+        public string Lastname { get; set; }
+
+        [Required]
+        public Gender Gender { get; set; }
+
+        [Required]
+        public Gender InterestedIn { get; set; }
+
+
     }
 
     public class ResetPasswordViewModel
