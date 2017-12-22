@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,12 @@ namespace WhaleDateProject.Controllers
 {
     public class ProfileController : BaseController
     {
-        // GET: Profile
-        public ActionResult Index()
+        [Authorize]
+        public ActionResult Index(string username)
         {
-            return View();
+            ApplicationUser user = db.Users.Single(x => x.UserName == username);
+            
+            return View(user);
         }
     }
 }
