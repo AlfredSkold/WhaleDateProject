@@ -14,8 +14,6 @@ namespace Data.Models
         public string Firstname { get; set; }
         
         public string Lastname { get; set; }
-
-
         public string Bio { get; set; }
 
         public string Age { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Data;
 
 namespace WhaleDateProject.Controllers
 {
@@ -10,7 +11,7 @@ namespace WhaleDateProject.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View(db.randomizeUser());
         }
 
         public ActionResult About()
