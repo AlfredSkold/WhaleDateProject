@@ -1,4 +1,6 @@
 ﻿using System.Data.Entity;
+using Data;
+using Data.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace WhaleDateProject.Models
@@ -15,5 +17,8 @@ namespace WhaleDateProject.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Friend> Friends { get; set; }
+
     }
 }

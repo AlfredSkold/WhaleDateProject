@@ -75,8 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
-    <Compile Include="ApplicationUser.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Class1.cs" />
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
