@@ -89,6 +89,12 @@ namespace WhaleDateProject.Models
         public string Lastname { get; set; }
 
         [Required]
+        public string Type { get; set; }
+
+        [Required]
+        public string Age { get; set; }
+
+        [Required]
         public string Gender { get; set; }
 
         [Required]

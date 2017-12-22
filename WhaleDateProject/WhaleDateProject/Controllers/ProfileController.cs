@@ -16,5 +16,12 @@ namespace WhaleDateProject.Controllers
             
             return View(user);
         }
+
+        [Authorize]
+        public ActionResult Profile(string username)
+        {
+            ApplicationUser user = db.Users.Single(x => x.UserName == username);
+            return View(user);
+        }
     }
 }

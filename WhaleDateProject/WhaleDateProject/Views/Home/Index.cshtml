@@ -5,9 +5,9 @@
 }
 
 <div class="jumbotron">
-    <h1>Ditt val</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Rätt Val</h1>
+    <p class="lead">Rätt Val är datingsidan för dig som är redo att träffa någon att ge sig ut på djupare vatten med</p>
+    <p><a href="@Url.Action("Register", "Account")" class="btn btn-primary btn-lg">Registrera dig med detsamma! &raquo;</a></p>
 </div>
 <div class="row">
     @foreach (var item in Model)
@@ -17,12 +17,13 @@
 
         <div class="col-md-4">
             <div>
-                <a href="@Url.Action("FriendList", "Friend")">
+                <a href="@Url.Action("Profile", "Profile", routeValues: new { username = item.UserName })">
                     <img class="img-rounded img-responsive" src=https://thumbs.dreamstime.com/b/gulligt-val-f%C3%B6r-bl%C3%A5-tecknad-film-8359732.jpg width="260" height="260" />
                 </a>
                 <h4>@item.Firstname @item.Lastname</h4>
                 <p>@item.Firstname är en av alla lyckliga valar som hittat kärleken via oss. Registrera dig idag och hitta kärleken precis som @item.Firstname har gjort!</p>
-                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Gå till @item.Firstname s profil! &raquo;</a></p>
+                @Html.ActionLink("Gå till "+item.Firstname+"s profil", "Profile", "Profile", routeValues: new { username = item.UserName }, htmlAttributes: new { title = "Profil" })
+                
             </div>
         </div>
     }

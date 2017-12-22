@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>@Model.Firstname @Model.Lastname</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -26,18 +26,15 @@
                     <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.Gender)</li>
                     <li class="list-group-item">Intresserad av: </li>
                     <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.InterestedIn)</li>
-                    <button class="btn btn-default btn-xs" type="button">Ändra info</button>
-                </ul>
-                
-                <br />
-                    <h4>Nytt inlägg:</h4>
-                    <form role="form">
-                        <div class="form-group">
-                            <textarea class="form-control" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-success">Lägg till</button>
-                    </form>
 
+                </ul><br>
+                <h4>Skriv ett inlägg på @Model.Firstname<text>s vägg!</text></h4>
+                <form role="form">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Lägg till</button>
+                </form>
             </div>
 
             <div class="col-sm-6">
@@ -61,20 +58,27 @@
             </div>
 
             <div class="col-sm-3 sidenav">
+                <img class="img-rounded img-responsive" src=https://thumbs.dreamstime.com/b/gulligt-val-f%C3%B6r-bl%C3%A5-tecknad-film-8359732.jpg width="260" height="260" />
                 <div>
-                    <button class="btn btn-default btn-xs navbar-btn" type="button">Byt profilbild</button>
-                    <img class="img-rounded img-responsive" src=https://thumbs.dreamstime.com/b/gulligt-val-f%C3%B6r-bl%C3%A5-tecknad-film-8359732.jpg width="260" height="260" />
-                </div>
-                <label for="Bio">Om mig:</label>
 
+                    <h5 class="text-success">
+                        <button class="btn btn-group-xs" type="button">
+                            <span class="glyphicon glyphicon-hand-right"></span>
+                        </button>
+                        Skicka en vänförfrågan till @Model.Firstname<text>!</text>
+                    </h5>
+                </div>
+                
+                <h3>Om @Model.Firstname</h3>
                 <div class="panel panel-default sidenav">
-                    <button class="btn btn-default btn-xs" type="button">Ändra info</button>
+
                     <div class="panel-body" id="Bio">@Html.DisplayFor(m => m.Bio)</div>
                 </div>
             </div>
         </div>
-     </div>
+    </div>
 
 </body>
 </html>
+
 

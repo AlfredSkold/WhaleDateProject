@@ -24,7 +24,7 @@ namespace Data
 
         public DbSet<Friend> Friends { get; set; }
 
-        public class MyInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+        public class MyInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
         {
             protected override void Seed(ApplicationDbContext context)
             {
@@ -34,7 +34,7 @@ namespace Data
 
                 for (int i = 0; i < 10; i++)
                 {
-                    var user = new ApplicationUser { Firstname = "valFörnamn" + i, Lastname = "valEfternamn" + i, UserName = $"val{i}@val.se", Email = $"val{i}@val.se" };
+                    var user = new ApplicationUser { Firstname = "valFörnamn" + i, Lastname = "valEfternamn" + i, UserName = $"val{i}@val.se", Email = $"val{i}@val.se", Gender = "Hane", InterestedIn = "Other"  };
                     userManager.CreateAsync(user, "User1!").Wait();
                 }
 

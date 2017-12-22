@@ -88,7 +88,7 @@ namespace WhaleDateProject.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Ogiltig Email eller lösenord");
                     return View(model);
             }
         }
@@ -153,7 +153,7 @@ namespace WhaleDateProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Firstname = model.Firstname, Lastname = model.Lastname, Gender = model.Gender, InterestedIn = model.InterestedIn };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Firstname = model.Firstname, Lastname = model.Lastname, Type = model.Type, Age = model.Age, Gender = model.Gender, InterestedIn = model.InterestedIn };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
