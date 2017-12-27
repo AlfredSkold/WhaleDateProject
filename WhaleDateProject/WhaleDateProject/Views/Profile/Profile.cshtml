@@ -78,14 +78,19 @@
 
                         case "friend":
                             <h5 class="text-success">
-                            Du och @Model.Firstname är vänner.
+                                Du och @Model.Firstname är vänner.
                             </h5>
-                            break;
+                        break;
                         case "request":
-                            <h5 class="text-success">
-                                Vänförfrågan skickad till @Model.Firstname<text>!</text>
-                            </h5>
-                            break;
+                                <h5 class="text-success">
+                                    Vänförfrågan skickad till @Model.Firstname<text>!</text>
+                                </h5>
+                        break;
+                        case "requesttome":
+                                <h5 class="text-success">
+                                    @Model.Firstname har skickat en vänförfrågan till dig!
+                                </h5>
+                        break;
                     }
                 </div>
                 <div>
@@ -94,9 +99,11 @@
                     <div class="panel panel-default sidenav">
 
                         <div class="panel-body" id="Bio">@Html.DisplayFor(m => m.Bio)</div>
+                    </div>
                 </div>
             </div>
-        </div>
+    </div>
+  </div>
 
 </body>
 </html>

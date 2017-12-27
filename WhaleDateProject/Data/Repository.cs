@@ -12,15 +12,26 @@ namespace Data
         public static string UserAdded(string ThisUser, string ProfileUser)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            ApplicationUser CurrentUser = db.Users.Single(x => x.UserName == ThisUser);
-            ApplicationUser CurrentProfile = db.Users.Single(x => x.UserName == ProfileUser);
-            
-            if (db.Friendrequests.Single(x => x.From == CurrentUser && x.To == CurrentProfile) != null)
+            //switch(db.Friendrequests.Single(c => c.From.UserName == ThisUser && c.To.UserName == ProfileUser).)
+            //{
+            //    case "":
+
+            //}
+
+
+
+
+
+
+            if (db.Friendrequests.FirstOrDefault(c => c.From.UserName == ThisUser && c.To.UserName == ProfileUser) != null)
             {
                 return "request";
-            } else if(db.Friends.Where(x => x.User == CurrentUser && x.AddedUser == CurrentProfile) != null)
+            } else if(db.Friends.FirstOrDefault(c => c.User.UserName == ThisUser && c.AddedUser.UserName == ProfileUser) != null)
             {
                 return "friend";
+            } else if(db.Friendrequests.FirstOrDefault(c => c.To.UserName == ThisUser && c.From.UserName == ProfileUser) != null)
+            {
+                return "requesttome";
             } else
             {
                 return "none";
