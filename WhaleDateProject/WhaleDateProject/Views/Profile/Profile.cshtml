@@ -1,4 +1,6 @@
-﻿@model Data.Models.ApplicationUser
+﻿@using Data
+@model Data.Models.ApplicationUser
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +24,7 @@
                     <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.Age)</li>
                     <li class="list-group-item ">Typ:</li>
                     <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.Type)</li>
-                    <li class="list-group-item">Jag är:</li>
+                    <li class="list-group-item">@Model.Firstname är:</li>
                     <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.Gender)</li>
                     <li class="list-group-item">Intresserad av: </li>
                     <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.InterestedIn)</li>
@@ -59,24 +61,42 @@
 
             <div class="col-sm-3 sidenav">
                 <img class="img-rounded img-responsive" src=https://thumbs.dreamstime.com/b/gulligt-val-f%C3%B6r-bl%C3%A5-tecknad-film-8359732.jpg width="260" height="260" />
+
                 <div>
 
-                    <h5 class="text-success">
-                        <button class="btn btn-group-xs" type="button">
-                            <span class="glyphicon glyphicon-hand-right"></span>
-                        </button>
-                        Skicka en vänförfrågan till @Model.Firstname<text>!</text>
-                    </h5>
-                </div>
-                
-                <h3>Om @Model.Firstname</h3>
-                <div class="panel panel-default sidenav">
 
-                    <div class="panel-body" id="Bio">@Html.DisplayFor(m => m.Bio)</div>
+                    @switch (Repository.UserAdded(User.Identity.Name, Model.UserName))
+                    {
+                        case "none":
+                            <h5 class="text-success">
+                                <button class="btn btn-group-xs" type="button" onclick="location.href='@Url.Action("Index", "Friendrequest", new { Username = Model.UserName })'">
+                                    <span class="glyphicon glyphicon-hand-right"></span>
+                                </button>
+                                Skicka en vänförfrågan till @Model.Firstname<text>!</text>
+                            </h5>
+                            break;
+
+                        case "friend":
+                            <h5 class="text-success">
+                            Du och @Model.Firstname är vänner.
+                            </h5>
+                            break;
+                        case "request":
+                            <h5 class="text-success">
+                                Vänförfrågan skickad till @Model.Firstname<text>!</text>
+                            </h5>
+                            break;
+                    }
+                </div>
+                <div>
+
+                    <h3>Om @Html.DisplayFor(m => m.Firstname)</h3>
+                    <div class="panel panel-default sidenav">
+
+                        <div class="panel-body" id="Bio">@Html.DisplayFor(m => m.Bio)</div>
                 </div>
             </div>
         </div>
-    </div>
 
 </body>
 </html>

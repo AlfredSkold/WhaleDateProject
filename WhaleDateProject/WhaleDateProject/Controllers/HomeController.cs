@@ -11,7 +11,8 @@ namespace WhaleDateProject.Controllers
     {
         public ActionResult Index()
         {
-            return View(db.randomizeUser());
+            return View(db.randomizeUser()
+                );
         }
 
         public ActionResult About()

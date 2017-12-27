@@ -24,6 +24,8 @@ namespace Data
 
         public DbSet<Friend> Friends { get; set; }
 
+        public DbSet<Friendrequest> Friendrequests { get; set; }
+
         public class MyInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
         {
             protected override void Seed(ApplicationDbContext context)

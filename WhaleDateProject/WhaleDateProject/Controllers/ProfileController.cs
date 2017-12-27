@@ -12,6 +12,7 @@ namespace WhaleDateProject.Controllers
         [Authorize]
         public ActionResult Index(string username)
         {
+            
             ApplicationUser user = db.Users.Single(x => x.UserName == username);
             
             return View(user);
@@ -20,8 +21,15 @@ namespace WhaleDateProject.Controllers
         [Authorize]
         public ActionResult Profile(string username)
         {
-            ApplicationUser user = db.Users.Single(x => x.UserName == username);
-            return View(user);
+            if (username == User.Identity.Name)
+            {
+                return RedirectToAction("Index", "Profile");
+            } else
+            {
+                ApplicationUser user = db.Users.Single(x => x.UserName == username);
+                return View(user);
+            }
+            
         }
     }
 }
