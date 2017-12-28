@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Data.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Sök profiler</h2>
+
+@using (Html.BeginForm("Search", "Search"))
+{
+    <input type="text" name="Searchstring" id="Searchstring" />
+
+    <input type="submit" value="Sök" />
+}
+<table class="table">
+    <tr>
+        <th>
+            Valar
+        </th>
+    </tr>
+    @if (Model.Count() < 1)
+    {
+        <tr>
+            <td>
+                Tyvärr fanns det inga profiler som passade in på din sökning!
+            </td>
+        </tr>
+    }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firstname) @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+
+            <td>
+                @Html.ActionLink("Profil", "Profile", "Profile", new { username = item.UserName }, htmlAttributes: null)
+            </td>
+        </tr>
+    }
+
+</table>
