@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Data.Models.Friendrequest>
+
+@{
+    ViewBag.Title = "RequestList";
+}
+
+<h2>Förfrågningar</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Valar som vill lägga till dig:
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.From.Firstname) @Html.DisplayFor(modelItem => item.From.Lastname)
+
+        </td>
+        <td>
+            @Html.ActionLink("Profil", "Profile", "Profile", routeValues: new { username = item.From.UserName }, htmlAttributes: null) |
+            @Html.ActionLink("Acceptera", "Accept", new { username = item.From.UserName }) |
+            @Html.ActionLink("Ignorera", "Ignore", new { username = item.From.UserName }) |
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,31 +1,44 @@
 ﻿@using Microsoft.AspNet.Identity
+@using Data
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-<div class="input-group">
-    <div class="col-sm-5 navbar-btn">
-        <span class="input-group-btn">
-            <input type="text" class="form-control" placeholder="Sök profiler..">
-            <button class="btn btn-default" type="button">
+        <div class="input-group">
+            <div class="col-sm-4 navbar-btn">
+                @*@using (Html.BeginForm("Index", "Search"))
+    {
+            <input type="text" name="Searchstring" id="Searchstring" />
+
+            <input type="submit" value="Sök" />*@
+}
+
+
+
+
+                <span class="input-group-btn">
+            <input name="Searchstring" id="Searchstring" type="text" class="form-control" placeholder="Sök profiler..">
+            <button class="btn btn-default" type="button" onclick="location.href='@Url.Action("Index", "Search", Html.)'">
+
                 <span class="glyphicon glyphicon-search"></span>
             </button>
         </span>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
 
-        </li>
-        <li>
-            @Html.ActionLink("Min profil", "Index", "Profile", routeValues: new { username = User.Identity.Name }, htmlAttributes: new { title = "Manage" })
 
-        </li>
-        <li>@Html.ActionLink("Kontaktlista", "Index", "Friend")</li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Logga ut</a></li>
-    </ul>
-</div>
+                </li>
+                <li>
+                    @Html.ActionLink("Min profil", "Index", "Profile", routeValues: new { username = User.Identity.Name }, htmlAttributes: new { title = "Manage" })
+
+                </li>
+                <li>@Html.ActionLink("Vänförfrågningar [" + Repository.NewRequests(User.Identity.Name)+"]", "RequestList", "Friendrequest")</li>
+                <li>@Html.ActionLink("Kontaktlista", "Index", "Friend")</li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Logga ut</a></li>
+            </ul>
+        </div>
     }
 }
 else

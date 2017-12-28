@@ -6,13 +6,10 @@
 
 <h2>Kontaktlista</h2>
 
-<p>
-    @Html.ActionLink("Lägg till", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            Vänner
         </th>
         <th></th>
     </tr>
@@ -20,11 +17,27 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.AddedUser.Firstname) @Html.DisplayFor(modelItem => item.AddedUser.Lastname)
+            @if (item.User.UserName == User.Identity.Name)
+            {
+                @Html.DisplayFor(modelItem => item.AddedUser.Firstname)  <text> </text> @Html.DisplayFor(modelItem => item.AddedUser.Lastname)
+            } else if(item.AddedUser.UserName == User.Identity.Name)
+            {
+                @Html.DisplayFor(modelItem => item.User.Firstname) <text> </text> @Html.DisplayFor(modelItem => item.User.Lastname)
+            }
         </td>
         <td>
-            @Html.ActionLink("Profil", "Index", new { id = item.Id }) |
-            @Html.ActionLink("Ta bort", "Delete", new { id = item.Id })|
+            @if (item.User.UserName == User.Identity.Name)
+            {
+                @Html.ActionLink("Profil |", "Profile", "Profile", new { username = item.AddedUser.UserName }, htmlAttributes: null) 
+
+                @Html.ActionLink(" Ta bort", "Delete", new { username = item.AddedUser.UserName })
+            } else
+            {
+                @Html.ActionLink("Profil |", "Profile", "Profile", new { username = item.User.UserName }, htmlAttributes: null)
+                @Html.ActionLink(" Ta bort", "Delete", new { username = item.User.UserName })
+            }
+
+            
         </td>
     </tr>
 }

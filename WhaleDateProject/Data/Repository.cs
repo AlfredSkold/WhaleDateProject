@@ -12,21 +12,13 @@ namespace Data
         public static string UserAdded(string ThisUser, string ProfileUser)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            //switch(db.Friendrequests.Single(c => c.From.UserName == ThisUser && c.To.UserName == ProfileUser).)
-            //{
-            //    case "":
-
-            //}
-
-
-
-
-
-
             if (db.Friendrequests.FirstOrDefault(c => c.From.UserName == ThisUser && c.To.UserName == ProfileUser) != null)
             {
                 return "request";
-            } else if(db.Friends.FirstOrDefault(c => c.User.UserName == ThisUser && c.AddedUser.UserName == ProfileUser) != null)
+            } else if (db.Friends.FirstOrDefault(c => c.User.UserName == ThisUser && c.AddedUser.UserName == ProfileUser) != null)
+            {
+                return "friend";
+            } else if (db.Friends.FirstOrDefault(c => c.AddedUser.UserName == ThisUser && c.User.UserName == ProfileUser) != null)
             {
                 return "friend";
             } else if(db.Friendrequests.FirstOrDefault(c => c.To.UserName == ThisUser && c.From.UserName == ProfileUser) != null)
@@ -36,7 +28,18 @@ namespace Data
             {
                 return "none";
             }
-        
+        }
+
+        public static int NewRequests(string ThisUser)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            int i = 0;
+            foreach (var item in db.Friendrequests.Where(c => c.To.UserName == ThisUser).ToList())
+            {
+                if (item.Viewed == false)
+                    i++;
+            }
+            return i;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace WhaleDateProject.Controllers
         {
             if (username == User.Identity.Name)
             {
-                return RedirectToAction("Index", "Profile");
+                return RedirectToAction("Index", "Profile", routeValues: new { username = User.Identity.Name });
             } else
             {
                 ApplicationUser user = db.Users.Single(x => x.UserName == username);

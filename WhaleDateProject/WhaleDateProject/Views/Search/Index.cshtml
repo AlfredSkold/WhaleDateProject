@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Data.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Profiler</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Profiler som matchar din sökning
+        </th>
+            
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Firstname)  @Html.DisplayFor(modelItem => item.Lastname)
+        </td>
+        <td>
+            @*<img class="img-rounded img-responsive" src=https://thumbs.dreamstime.com/b/gulligt-val-f%C3%B6r-bl%C3%A5-tecknad-film-8359732.jpg width="260" height="260" />*@
+        </td>
+         <td>
+            @Html.ActionLink("Profile", "Profile", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

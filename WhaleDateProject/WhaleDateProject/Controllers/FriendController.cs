@@ -15,46 +15,25 @@ namespace WhaleDateProject.Controllers
         public ActionResult Index()
         {
             var FriendList = db.Friends.Include(x => x.User).ToList();
+            
+            return View(FriendList);
+        }
 
-            List<Friend> allFriends = new List<Friend>();
+        public ActionResult Delete(string username)
+        {
+            var Friendship = db.Friends.FirstOrDefault(c => c.User.UserName == User.Identity.Name && c.AddedUser.UserName == username);
+            var AltFriendship = db.Friends.FirstOrDefault(c => c.AddedUser.UserName == User.Identity.Name && c.User.UserName == username);
 
-            foreach (var Friend in FriendList)
+            if(Friendship != null)
             {
-                if(Friend.User.UserName == User.Identity.Name)
-                {
-                    allFriends.Add(Friend);
-                }
+                db.Friends.Remove(Friendship);
+            } else
+            {
+                db.Friends.Remove(AltFriendship);
             }
-
-            return View(allFriends);
-        }
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-        
-        [HttpPost]
-        public ActionResult Create(Friend friend)
-        {
-            var ThisUser = db.Users.Single(x => x.UserName == User.Identity.Name);
-            var FriendUser = db.Users.Single(x => x.UserName == friend.Email);
-            Friend newFriend = new Friend() { Email = friend.Email, User = ThisUser, AddedUser = FriendUser };
-            db.Friends.Add(newFriend);
             db.SaveChanges();
-            ViewBag.Title = "Vänförfrågan Skickad!";
-            return View();
-        }
-        
-        
-        public ActionResult Delete(int id)
-        {
-            Friend Friendship = db.Friends.Single(x => x.Id == id);
 
-
-            db.Friends.Remove(Friendship);
-            db.SaveChanges();
-            return View("Create", "Friend");
+            return RedirectToAction("Index");
         }
     }
 }
