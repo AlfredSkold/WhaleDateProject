@@ -17,17 +17,37 @@
         <div class="row content">
             <div class="col-sm-3 sidenav">
                 <h3>@Model.Firstname @Model.Lastname</h3>
+                @using (Html.BeginForm("Info", "Edit", null, FormMethod.Post))
+                {
                 <ul class="list-group nav nav-pill nav-stacked">
                     <li class="list-group-item">Ålder:</li>
-                    <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.Age)</li>
-                    <li class="list-group-item ">Typ:</li>
-                    <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.Type)</li>
+                    <li class="list-group-item list-group-item-info"><input type="text" name="Age" value=@Html.DisplayFor(m => m.Age)></li>
+                    <li class="list-group-item">Typ:</li>
+                    <li class="list-group-item list-group-item-info"><input type="text" name="Type" value=@Html.DisplayFor(m => m.Type)></li>
                     <li class="list-group-item">Jag är:</li>
-                    <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.Gender)</li>
+                    <li class="list-group-item list-group-item-info">
+                        <input type="text" name="Gender" value=@Html.DisplayFor(m => m.Gender)>
+                    </li>
                     <li class="list-group-item">Intresserad av: </li>
-                    <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.InterestedIn)</li>
-                    <button class="btn btn-default btn-xs" type="button">Ändra info</button>
+                    <li class="list-group-item list-group-item-info">
+                        <input type="text" name="InterestedIn" value=@Html.DisplayFor(m => m.InterestedIn)>
+                    </li>
+                    <li class="list-group-item list-group-item-info">
+                        <div class="radio">
+                            @if(Model.Private == false)
+                            {
+                                <label><input type="checkbox" name="Private" id="Private">Gömd profil</label>
+                            } else
+                            {
+                                <label><input type="checkbox" name="Private" checked>Gömd profil</label>
+                            }
+
+                        </div>
+                    </li>
+
                 </ul>
+                <input type="submit" value="Ändra">
+                }
 
                 <br />
                 <h4>Nytt inlägg:</h4>
@@ -65,16 +85,21 @@
                 {
 
                     <div>
-                        <input type="file" name="upload" />
+                        <input type="file" name="upload" value="Välj bild"/>
                         <img class="img-rounded img-responsive" src="@Url.Action("Image", new { username = Model.UserName })" />
-                        <input type="submit" value="Ändra" />
+                        <input type="submit" value="Byt" />
                     </div>
                 }
                 <label for="Bio">Om mig:</label>
 
                 <div class="panel panel-default sidenav">
-                    <button class="btn btn-default btn-xs" type="button">Ändra info</button>
                     <div class="panel-body" id="Bio">@Html.DisplayFor(m => m.Bio)</div>
+                    @using (Html.BeginForm("Bio", "Edit", null, FormMethod.Post))
+                    {
+                        <input type="text" name="Bio" placeholder="Ändra bio..">
+                        <input type="submit" value="Ändra">
+                    }
+                    
                 </div>
             </div>
         </div>

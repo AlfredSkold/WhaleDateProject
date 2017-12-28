@@ -9,7 +9,14 @@
 <table class="table">
     <tr>
         <th>
-            Valar som vill lägga till dig:
+            @if(Model.ToList().Count < 1)
+            {
+                <text>Du har inga nya vänförfrågningar</text>
+            } else
+            {
+                 <text>Valar som vill lägga till dig: </text>
+            }
+            
         </th>
         <th></th>
     </tr>
