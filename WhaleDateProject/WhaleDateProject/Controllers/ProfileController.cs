@@ -12,9 +12,9 @@ namespace WhaleDateProject.Controllers
         [Authorize]
         public ActionResult Index(string username)
         {
-            
+
             ApplicationUser user = db.Users.Single(x => x.UserName == username);
-            
+
             return View(user);
         }
 
@@ -24,12 +24,20 @@ namespace WhaleDateProject.Controllers
             if (username == User.Identity.Name)
             {
                 return RedirectToAction("Index", "Profile", routeValues: new { username = User.Identity.Name });
-            } else
+            }
+            else
             {
                 ApplicationUser user = db.Users.Single(x => x.UserName == username);
                 return View(user);
             }
-            
+
+        }
+
+        public ActionResult Image(string username)
+        {
+            var user = db.Users.Single(c => c.UserName == username);
+
+            return File(user.ProfilePhoto, user.ContentType);
         }
     }
 }

@@ -28,15 +28,15 @@
                     <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.InterestedIn)</li>
                     <button class="btn btn-default btn-xs" type="button">Ändra info</button>
                 </ul>
-                
+
                 <br />
-                    <h4>Nytt inlägg:</h4>
-                    <form role="form">
-                        <div class="form-group">
-                            <textarea class="form-control" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-success">Skicka</button>
-                    </form>
+                <h4>Nytt inlägg:</h4>
+                <form role="form">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Skicka</button>
+                </form>
 
             </div>
 
@@ -61,10 +61,15 @@
             </div>
 
             <div class="col-sm-3 sidenav">
-                <div>
-                    <button class="btn btn-default btn-xs navbar-btn" type="button">Byt profilbild</button>
-                    <img class="img-rounded img-responsive" src=https://thumbs.dreamstime.com/b/gulligt-val-f%C3%B6r-bl%C3%A5-tecknad-film-8359732.jpg width="260" height="260" />
-                </div>
+                @using (Html.BeginForm("Photo", "Edit", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div>
+                        <input type="file" name="upload" />
+                        <img class="img-rounded img-responsive" src="@Url.Action("Image", new { username = Model.UserName })" />
+                        <input type="submit" value="Ändra" />
+                    </div>
+                }
                 <label for="Bio">Om mig:</label>
 
                 <div class="panel panel-default sidenav">
@@ -73,7 +78,7 @@
                 </div>
             </div>
         </div>
-     </div>
+    </div>
 
 </body>
 </html>

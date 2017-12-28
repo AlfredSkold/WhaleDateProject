@@ -60,8 +60,7 @@
             </div>
 
             <div class="col-sm-3 sidenav">
-                <img class="img-rounded img-responsive" src=https://thumbs.dreamstime.com/b/gulligt-val-f%C3%B6r-bl%C3%A5-tecknad-film-8359732.jpg width="260" height="260" />
-
+                <img class="img-rounded img-responsive" src="@Url.Action("Image", new { username = Model.UserName })" />
                 <div>
 
 
@@ -80,17 +79,17 @@
                             <h5 class="text-success">
                                 Du och @Model.Firstname är vänner.
                             </h5>
-                        break;
+                            break;
                         case "request":
-                                <h5 class="text-success">
-                                    Vänförfrågan skickad till @Model.Firstname<text>!</text>
-                                </h5>
-                        break;
+                            <h5 class="text-success">
+                                Vänförfrågan skickad till @Model.Firstname<text>!</text>
+                            </h5>
+                            break;
                         case "requesttome":
-                                <h5 class="text-success">
-                                    @Model.Firstname har skickat en vänförfrågan till dig!
-                                </h5>
-                        break;
+                            <h5 class="text-success">
+                                @Model.Firstname har skickat en vänförfrågan till dig!
+                            </h5>
+                            break;
                     }
                 </div>
                 <div>
@@ -102,8 +101,8 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
-  </div>
 
 </body>
 </html>
