@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using Data;
 using Data.Models;
@@ -57,7 +58,8 @@ namespace Data
 
             for (int i = 0; i < 10; i++)
             {
-                var user = new ApplicationUser { Firstname = "valFörnamn" + i, Lastname = "valEfternamn" + i, UserName = $"val{i}@val.se", Email = $"val{i}@val.se", Gender = "Hane", InterestedIn = "Other" };
+                var user = new ApplicationUser { Firstname = "valFörnamn" + i, Lastname = "valEfternamn" + i, UserName = $"val{i}@val.se", Email = $"val{i}@val.se",
+                    Gender = "Hane", InterestedIn = "Other", ProfilePhoto = File.ReadAllBytes("val.jpg"), ContentType ="Test"};
                 userManager.CreateAsync(user, "User1!").Wait();
             }
 
@@ -65,7 +67,5 @@ namespace Data
             base.Seed(context);
         }
     }
-
-
 
 }
