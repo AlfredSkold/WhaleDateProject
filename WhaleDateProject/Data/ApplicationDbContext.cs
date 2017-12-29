@@ -26,24 +26,7 @@ namespace Data
 
         public DbSet<Friendrequest> Friendrequests { get; set; }
 
-        public class MyInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
-        {
-            protected override void Seed(ApplicationDbContext context)
-            {
-                var store = new UserStore<ApplicationUser>(context);
-
-                var userManager = new ApplicationUserManager(store);
-
-                for (int i = 0; i < 10; i++)
-                {
-                    var user = new ApplicationUser { Firstname = "valFörnamn" + i, Lastname = "valEfternamn" + i, UserName = $"val{i}@val.se", Email = $"val{i}@val.se", Gender = "Hane", InterestedIn = "Other"  };
-                    userManager.CreateAsync(user, "User1!").Wait();
-                }
-
-
-                base.Seed(context);
-            }
-        }
+        
 
         
 
@@ -64,7 +47,25 @@ namespace Data
         }
 
     }
+    public class MyInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    {
+        protected override void Seed(ApplicationDbContext context)
+        {
+            var store = new UserStore<ApplicationUser>(context);
 
-    
+            var userManager = new ApplicationUserManager(store);
+
+            for (int i = 0; i < 10; i++)
+            {
+                var user = new ApplicationUser { Firstname = "valFörnamn" + i, Lastname = "valEfternamn" + i, UserName = $"val{i}@val.se", Email = $"val{i}@val.se", Gender = "Hane", InterestedIn = "Other" };
+                userManager.CreateAsync(user, "User1!").Wait();
+            }
+
+
+            base.Seed(context);
+        }
+    }
+
+
 
 }
