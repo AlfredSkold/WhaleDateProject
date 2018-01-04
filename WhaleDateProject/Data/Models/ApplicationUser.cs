@@ -17,8 +17,8 @@ namespace Data.Models
         public string Lastname { get; set; }
         public string Bio { get; set; }
 
-        [Display(Name = "No Of Children")]
-        [Range(0, 15, ErrorMessage = "FEL SOM FAN ")]
+        [Display(Name = "Ålder")]
+        [Range(0, 1000, ErrorMessage = "Fyll i din ålder")]
         public string Age { get; set; }
 
         public string Type { get; set; }
