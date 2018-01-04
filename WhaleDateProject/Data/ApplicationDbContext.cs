@@ -59,7 +59,7 @@ namespace Data
             for (int i = 0; i < 10; i++)
             {
                 var user = new ApplicationUser { Firstname = "valFörnamn" + i, Lastname = "valEfternamn" + i, UserName = $"val{i}@val.se", Email = $"val{i}@val.se",
-                    Gender = "Hane", InterestedIn = "Other", Private = true, ProfilePhoto = File.ReadAllBytes("val.jpg"), ContentType ="Test"};
+                    Gender = "Hane", InterestedIn = "Other", Type = "Finval", Age = "666", Private = false, ProfilePhoto = File.ReadAllBytes("val.jpg"), ContentType ="Test"};
                 userManager.CreateAsync(user, "User1!").Wait();
             }
 

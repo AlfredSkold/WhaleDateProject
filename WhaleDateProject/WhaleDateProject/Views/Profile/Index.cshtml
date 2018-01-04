@@ -19,35 +19,35 @@
                 <h3>@Model.User.Firstname @Model.User.Lastname</h3>
                 @using (Html.BeginForm("Info", "Edit", null, FormMethod.Post))
     {
-            <ul class="list-group nav nav-pill nav-stacked">
-                <li class="list-group-item">Ålder:</li>
-                <li class="list-group-item list-group-item-info">@Html.EditorFor(m => m.User.Age)</li>
-                <li class="list-group-item">Typ:</li>
-                <li class="list-group-item list-group-item-info">@Html.EditorFor(m => m.User.Type)</li>
-                <li class="list-group-item">Jag är:</li>
-                <li class="list-group-item list-group-item-info">
-                    @Html.EditorFor(m => m.User.Gender)
-                </li>
-                <li class="list-group-item">Intresserad av: </li>
-                <li class="list-group-item list-group-item-info">
-                    @Html.EditorFor(m => m.User.InterestedIn)
-                </li>
-                <li class="list-group-item list-group-item-info">
-                    <div class="radio">
-                        @*@if(Model.User.Private == false)
+                <ul class="list-group nav nav-pill nav-stacked">
+                    <li class="list-group-item">Ålder:</li>
+                    <li class="list-group-item list-group-item-info">@Html.EditorFor(m => m.User.Age)</li>
+                    <li class="list-group-item">Typ:</li>
+                    <li class="list-group-item list-group-item-info">@Html.EditorFor(m => m.User.Type)</li>
+                    <li class="list-group-item">Jag är:</li>
+                    <li class="list-group-item list-group-item-info">
+                        @Html.EditorFor(m => m.User.Gender)
+                    </li>
+                    <li class="list-group-item">Intresserad av: </li>
+                    <li class="list-group-item list-group-item-info">
+                        @Html.EditorFor(m => m.User.InterestedIn)
+                    </li>
+                    <li class="list-group-item list-group-item-info">
+                        <div class="radio">
+                            @*@if(Model.User.Private == false)
                 {
                     <label><input type="checkbox" name="Private" id="Private">Gömd profil</label>
                 } else
                 {
                     <label><input type="checkbox" name="Private" checked>Gömd profil</label>
                 }*@
-                        <label>Privat profil @Html.EditorFor(m => m.User.Private)</label>
+                            <label>Privat profil @Html.EditorFor(m => m.User.Private)</label>
 
 
-                    </div>
-                </li>
+                        </div>
+                    </li>
 
-            </ul>
+                </ul>
             <input type="submit" value="Ändra">
 }
 

@@ -10,7 +10,7 @@ namespace WhaleDateProject.Controllers
 {
     public class FriendrequestController : BaseController
     {
-        // GET: Friendrequest
+        
         public ActionResult Index(string Username)
         {
             ApplicationUser FromUser = db.Users.Single(x => x.UserName == User.Identity.Name);
