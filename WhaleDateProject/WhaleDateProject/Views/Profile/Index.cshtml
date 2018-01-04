@@ -18,38 +18,86 @@
             <div class="col-sm-3 sidenav">
                 <h3>@Model.User.Firstname @Model.User.Lastname</h3>
                 @using (Html.BeginForm("Info", "Edit", null, FormMethod.Post))
-    {
-                <ul class="list-group nav nav-pill nav-stacked">
-                    <li class="list-group-item">Ålder:</li>
-                    <li class="list-group-item list-group-item-info">@Html.EditorFor(m => m.User.Age)</li>
-                    <li class="list-group-item">Typ:</li>
-                    <li class="list-group-item list-group-item-info">@Html.EditorFor(m => m.User.Type)</li>
-                    <li class="list-group-item">Jag är:</li>
-                    <li class="list-group-item list-group-item-info">
-                        @Html.EditorFor(m => m.User.Gender)
-                    </li>
-                    <li class="list-group-item">Intresserad av: </li>
-                    <li class="list-group-item list-group-item-info">
-                        @Html.EditorFor(m => m.User.InterestedIn)
-                    </li>
-                    <li class="list-group-item list-group-item-info">
-                        <div class="radio">
-                            @*@if(Model.User.Private == false)
                 {
-                    <label><input type="checkbox" name="Private" id="Private">Gömd profil</label>
-                } else
-                {
-                    <label><input type="checkbox" name="Private" checked>Gömd profil</label>
-                }*@
-                            <label>Privat profil @Html.EditorFor(m => m.User.Private)</label>
+                    <ul class="list-group nav nav-pill nav-stacked">
+                        <li class="list-group-item">Ålder:</li>
+                        <li class="list-group-item list-group-item-info">@Html.EditorFor(m => m.User.Age)</li>
+                        <li class="list-group-item">Typ:</li>
+                        <li class="list-group-item list-group-item-info">@Html.EditorFor(m => m.User.Type)</li>
+                        <li class="list-group-item">Jag är:</li>
+                        <li class="list-group-item list-group-item-info">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.User.Gender, "", new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @{
+                                        List<SelectListItem> genderListItems = new List<SelectListItem>();
+                                        genderListItems.Add(new SelectListItem
+                                        {
+                                            Text = "Hona",
+                                            Value = "Hona"
+                                        });
+                                        genderListItems.Add(new SelectListItem
+                                        {
+                                            Text = "Hane",
+                                            Value = "Hane",
+                                        });
+                                        genderListItems.Add(new SelectListItem
+                                        {
+                                            Text = "Annan",
+                                            Value = "Annan"
+                                        });
+                                    }
+
+                                    @Html.DropDownListFor(model => model.User.Gender, genderListItems)
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">Intresserad av: </li>
+                        <li class="list-group-item list-group-item-info">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.User.InterestedIn, "", new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @{
+                                        List<SelectListItem> listItems = new List<SelectListItem>();
+                                        listItems.Add(new SelectListItem
+                                        {
+                                            Text = "Hona",
+                                            Value = "Hona"
+                                        });
+                                        listItems.Add(new SelectListItem
+                                        {
+                                            Text = "Hane",
+                                            Value = "Hane",
+                                        });
+                                        listItems.Add(new SelectListItem
+                                        {
+                                            Text = "Annan",
+                                            Value = "Annan"
+                                        });
+                                    }
+
+                                    @Html.DropDownListFor(model => model.User.InterestedIn, listItems)
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item list-group-item-info">
+                            <div class="radio">
+                                @*@if(Model.User.Private == false)
+                                    {
+                                        <label><input type="checkbox" name="Private" id="Private">Gömd profil</label>
+                                    } else
+                                    {
+                                        <label><input type="checkbox" name="Private" checked>Gömd profil</label>
+                                    }*@
+                                <label>Privat profil @Html.EditorFor(m => m.User.Private)</label>
 
 
-                        </div>
-                    </li>
+                            </div>
+                        </li>
 
-                </ul>
-            <input type="submit" value="Ändra">
-}
+                    </ul>
+                    <input type="submit" value="Ändra">
+                }
 
                 <br />
                 <h4>Nytt inlägg:</h4>
@@ -83,7 +131,7 @@
 
             <div class="col-sm-6">
                 <h4><small><br>INLÄGG</small></h4>
-                @foreach(var item in Model.Posts)
+                @foreach (var item in Model.Posts)
                 {
                     <hr>
                     <h2>@item.From.Firstname @item.From.Lastname</h2>
@@ -99,7 +147,7 @@
                 {
 
                     <div>
-                        <input type="file" name="upload" value="Välj bild"/>
+                        <input type="file" name="upload" value="Välj bild" />
                         <img class="img-rounded img-responsive" src="@Url.Action("Image", new { username = Model.User.UserName })" />
                         <input type="submit" value="Byt" />
                     </div>
