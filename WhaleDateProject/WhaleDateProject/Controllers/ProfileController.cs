@@ -4,23 +4,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WhaleDateProject.Models;
+using System.Data.Entity;
 
 namespace WhaleDateProject.Controllers
 {
     public class ProfileController : BaseController
     {
         [Authorize]
-        public ActionResult Index(string username)
+        public ActionResult Index()
         {
+            
+            ApplicationUser user = db.Users.Single(x => x.UserName == User.Identity.Name);
+            
+            var posts = db.Posts.Include(c => c.From).Where(x => x.To.UserName == user.UserName).ToList();
+            
 
-            ApplicationUser user = db.Users.Single(x => x.UserName == username);
-
-            return View(user);
+            ProfileViewModel ViewModel = new ProfileViewModel { User = user, Posts = posts };
+            return View(ViewModel);
         }
 
         [Authorize]
         public ActionResult Profile(string username)
         {
+
             if (username == User.Identity.Name)
             {
                 return RedirectToAction("Index", "Profile", routeValues: new { username = User.Identity.Name });
@@ -28,7 +35,18 @@ namespace WhaleDateProject.Controllers
             else
             {
                 ApplicationUser user = db.Users.Single(x => x.UserName == username);
-                return View(user);
+                var posts = db.Posts.Include(c => c.From).Where(x => x.To.UserName == username).ToList();
+
+                //ApplicationUser fakeUser = db.Users.Single(x => x.Firstname == "valFörnamn5");
+
+                //Post post = new Post { From = fakeUser, To = user, Text = "TJABBBABJABETJTEJHRJERHJAHRJA", Date = DateTime.Now };
+
+                //db.Posts.Add(post);
+                //db.SaveChanges();
+
+                ProfileViewModel ViewModel = new ProfileViewModel { User = user, Posts = posts };
+                
+                return View(ViewModel);
             }
 
         }

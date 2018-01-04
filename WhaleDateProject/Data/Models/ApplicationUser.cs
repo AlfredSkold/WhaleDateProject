@@ -18,8 +18,6 @@ namespace Data.Models
 
         public string Age { get; set; }
 
-        public string Feeling { get; set; }
-
         public string Type { get; set; }
 
         public string Gender { get; set; }

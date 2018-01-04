@@ -12,7 +12,7 @@
                 </li>
 
                 <li>
-                    @Html.ActionLink("Min profil", "Index", "Profile", routeValues: new { username = User.Identity.Name }, htmlAttributes: new { title = "Manage" })
+                    @Html.ActionLink("Min profil", "Index", "Profile")
 
                 </li>
                 <li>@Html.ActionLink("Vänförfrågningar [" + Repository.NewRequests(User.Identity.Name) + "]", "RequestList", "Friendrequest")</li>
@@ -25,7 +25,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Registrera", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Logga in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink(Data.Internationalization.HomeTexts.Register, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink(Data.Internationalization.HomeTexts.Login, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

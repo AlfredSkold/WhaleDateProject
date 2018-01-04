@@ -16,7 +16,7 @@ namespace WhaleDateProject.Controllers
 
         public ActionResult Search(string Searchstring)
         {
-            var FoundProfiles = db.Users.Where(c => c.Firstname.Contains(Searchstring) || c.Lastname.Contains(Searchstring)).ToList();
+            var FoundProfiles = db.Users.Where(c => (c.Firstname.Contains(Searchstring) || c.Lastname.Contains(Searchstring)) && c.Private == false).ToList();
             return View(FoundProfiles);
         }
     }

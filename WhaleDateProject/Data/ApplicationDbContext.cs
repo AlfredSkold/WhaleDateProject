@@ -27,9 +27,9 @@ namespace Data
 
         public DbSet<Friendrequest> Friendrequests { get; set; }
 
-        
+        public DbSet<Post> Posts { get; set; }
 
-        
+
 
         public List<ApplicationUser> randomizeUser()
         {
@@ -48,7 +48,7 @@ namespace Data
         }
 
     }
-    public class MyInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class MyInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
@@ -59,7 +59,7 @@ namespace Data
             for (int i = 0; i < 10; i++)
             {
                 var user = new ApplicationUser { Firstname = "valFörnamn" + i, Lastname = "valEfternamn" + i, UserName = $"val{i}@val.se", Email = $"val{i}@val.se",
-                    Gender = "Hane", InterestedIn = "Other", ProfilePhoto = File.ReadAllBytes("val.jpg"), ContentType ="Test"};
+                    Gender = "Hane", InterestedIn = "Other", Private = true, ProfilePhoto = File.ReadAllBytes("val.jpg"), ContentType ="Test"};
                 userManager.CreateAsync(user, "User1!").Wait();
             }
 

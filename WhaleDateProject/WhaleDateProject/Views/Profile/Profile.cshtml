@@ -1,11 +1,10 @@
 ﻿@using Data
-@model Data.Models.ApplicationUser
-
+@model WhaleDateProject.Models.ProfileViewModel
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>@Model.Firstname @Model.Lastname</title>
+    <title>@Model.User.Firstname @Model.User.Lastname</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -18,86 +17,95 @@
     <div class="container-fluid">
         <div class="row content">
             <div class="col-sm-3 sidenav">
-                <h3>@Model.Firstname @Model.Lastname</h3>
+                <h3>@Model.User.Firstname @Model.User.Lastname</h3>
                 <ul class="list-group nav nav-pill nav-stacked">
                     <li class="list-group-item">Ålder:</li>
-                    <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.Age)</li>
+                    <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.User.Age)</li>
                     <li class="list-group-item ">Typ:</li>
-                    <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.Type)</li>
-                    <li class="list-group-item">@Model.Firstname är:</li>
-                    <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.Gender)</li>
+                    <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.User.Type)</li>
+                    <li class="list-group-item">@Model.User.Firstname är:</li>
+                    <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.User.Gender)</li>
                     <li class="list-group-item">Intresserad av: </li>
-                    <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.InterestedIn)</li>
+                    <li class="list-group-item list-group-item-info">@Html.DisplayFor(m => m.User.InterestedIn)</li>
 
                 </ul><br>
-                <h4>Skriv ett inlägg på @Model.Firstname<text>s vägg!</text></h4>
-                <form role="form">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="3" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-success">Lägg till</button>
-                </form>
+                <h4>Skriv ett inlägg på @Model.User.Firstname<text>s vägg!</text></h4>
+                <script>
+                function addPost() {
+                    var Text = $('#Text').val();
+                    var Sender = '@User.Identity.Name';
+                    var Reciever = '@Model.User.UserName';
+                    var newPost = {FromUsername: Sender, ToUsername: Reciever, Text: Text};
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("Post","Post", new { httproute = "" })',
+                            data: JSON.stringify(newPost),
+                            contentType:'application/json',
+                            datatype: 'json',
+                            success: function (data) {
+                                $('#Text').val('');
+                                location.reload();
+                            }
+                        })
+                    };
+                </script>
+                    <textarea  id="Text" rows="3" cols="500" style="width:256px"></textarea><br />
+                    <input type="button" value="Skicka inlägg" onclick="addPost()" />
             </div>
 
+
             <div class="col-sm-6">
-
                 <h4><small><br>INLÄGG</small></h4>
-                <hr>
-                <h2>I Love Food</h2>
-                <h5><span class="glyphicon glyphicon-time"></span> Post by Jane Dane, Sep 27, 2015.</h5>
-                <h5><span class="label label-danger">Food</span> <span class="label label-primary">Ipsum</span></h5><br>
-                <p>Food is my passion. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <br><br>
-
-
-                <hr>
-                <h2>Officially Blogging</h2>
-                <h5><span class="glyphicon glyphicon-time"></span> Post by John Doe, Sep 24, 2015.</h5>
-                <h5><span class="label label-success">Lorem</span></h5><br>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
+                @foreach(var item in Model.Posts)
+                {
+                    <hr>
+                    <h2>@item.From.Firstname @item.From.Lastname</h2>
+                    <h5><span class="glyphicon glyphicon-time"></span>@item.Date </h5>
+                    <p>@item.Text</p>
+                    <br><br>
+                }
 
             </div>
 
             <div class="col-sm-3 sidenav">
-                <img class="img-rounded img-responsive" src="@Url.Action("Image", new { username = Model.UserName })" />
+                <img class="img-rounded img-responsive" src="@Url.Action("Image", new { username = Model.User.UserName })" />
                 <div>
 
 
-                    @switch (Repository.UserAdded(User.Identity.Name, Model.UserName))
+                    @switch (Repository.UserAdded(User.Identity.Name, Model.User.UserName))
                     {
                         case "none":
                             <h5 class="text-success">
-                                <button class="btn btn-group-xs" type="button" onclick="location.href='@Url.Action("Index", "Friendrequest", new { Username = Model.UserName })'">
+                                <button class="btn btn-group-xs" type="button" onclick="location.href='@Url.Action("Index", "Friendrequest", new { Username = Model.User.UserName })'">
                                     <span class="glyphicon glyphicon-hand-right"></span>
                                 </button>
-                                Skicka en vänförfrågan till @Model.Firstname<text>!</text>
+                                Skicka en vänförfrågan till @Model.User.Firstname<text>!</text>
                             </h5>
                             break;
 
                         case "friend":
                             <h5 class="text-success">
-                                Du och @Model.Firstname är vänner.
+                                Du och @Model.User.Firstname är vänner.
                             </h5>
                             break;
                         case "request":
                             <h5 class="text-success">
-                                Vänförfrågan skickad till @Model.Firstname<text>!</text>
+                                Vänförfrågan skickad till @Model.User.Firstname<text>!</text>
                             </h5>
                             break;
                         case "requesttome":
                             <h5 class="text-success">
-                                @Model.Firstname har skickat en vänförfrågan till dig!
+                                @Model.User.Firstname har skickat en vänförfrågan till dig!
                             </h5>
                             break;
                     }
                 </div>
                 <div>
 
-                    <h3>Om @Html.DisplayFor(m => m.Firstname)</h3>
+                    <h3>Om @Html.DisplayFor(m => m.User.Firstname)</h3>
                     <div class="panel panel-default sidenav">
 
-                        <div class="panel-body" id="Bio">@Html.DisplayFor(m => m.Bio)</div>
+                        <div class="panel-body" id="Bio">@Html.DisplayFor(m => m.User.Bio)</div>
                     </div>
                 </div>
             </div>

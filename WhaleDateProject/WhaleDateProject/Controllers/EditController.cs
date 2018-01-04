@@ -28,20 +28,18 @@ namespace WhaleDateProject.Controllers
                 }
                 db.SaveChanges();
             }
-
-
-
             return RedirectToAction("Index", "Profile", new { username = User.Identity.Name });
         }
-
-        public ActionResult Info(string Age, string Type, string Gender, string InterestedIn)
+        [HttpPost]
+        public ActionResult Info(ApplicationUser user)
         {
             var thisUser = db.Users.Single(c => c.UserName == User.Identity.Name);
 
-            thisUser.Age = Age;
-            thisUser.Type = Type;
-            thisUser.Gender = Gender;
-            thisUser.InterestedIn = InterestedIn;
+            thisUser.Age = user.Age;
+            thisUser.Type = user.Type;
+            thisUser.Gender = user.Gender;
+            thisUser.InterestedIn = user.InterestedIn;
+            thisUser.Private = user.Private;
             //if (Private== true)
             //{
             //    thisUser.Private = true;
@@ -49,19 +47,20 @@ namespace WhaleDateProject.Controllers
             //{
             //    thisUser.Private = false;
             //}
-            
+
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Profile", new { username = User.Identity.Name });
+            return RedirectToAction("Index", "Profile");
         }
 
-        public ActionResult Bio(string Bio)
+        [HttpPost]
+        public ActionResult Bio(ApplicationUser user)
         {
             var thisUser = db.Users.Single(c => c.UserName == User.Identity.Name);
 
-            thisUser.Bio = Bio;
+            thisUser.Bio = user.Bio;
             db.SaveChanges();
-            return RedirectToAction("Index", "Profile", new { username = User.Identity.Name });
+            return RedirectToAction("Index", "Profile");
         }
     }
 }

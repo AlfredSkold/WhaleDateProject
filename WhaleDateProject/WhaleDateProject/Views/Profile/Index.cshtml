@@ -1,4 +1,4 @@
-﻿@model Data.Models.ApplicationUser
+﻿@model WhaleDateProject.Models.ProfileViewModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,67 +16,81 @@
     <div class="container-fluid">
         <div class="row content">
             <div class="col-sm-3 sidenav">
-                <h3>@Model.Firstname @Model.Lastname</h3>
+                <h3>@Model.User.Firstname @Model.User.Lastname</h3>
                 @using (Html.BeginForm("Info", "Edit", null, FormMethod.Post))
+    {
+            <ul class="list-group nav nav-pill nav-stacked">
+                <li class="list-group-item">Ålder:</li>
+                <li class="list-group-item list-group-item-info">@Html.EditorFor(m => m.User.Age)</li>
+                <li class="list-group-item">Typ:</li>
+                <li class="list-group-item list-group-item-info">@Html.EditorFor(m => m.User.Type)</li>
+                <li class="list-group-item">Jag är:</li>
+                <li class="list-group-item list-group-item-info">
+                    @Html.EditorFor(m => m.User.Gender)
+                </li>
+                <li class="list-group-item">Intresserad av: </li>
+                <li class="list-group-item list-group-item-info">
+                    @Html.EditorFor(m => m.User.InterestedIn)
+                </li>
+                <li class="list-group-item list-group-item-info">
+                    <div class="radio">
+                        @*@if(Model.User.Private == false)
                 {
-                <ul class="list-group nav nav-pill nav-stacked">
-                    <li class="list-group-item">Ålder:</li>
-                    <li class="list-group-item list-group-item-info"><input type="text" name="Age" value=@Html.DisplayFor(m => m.Age)></li>
-                    <li class="list-group-item">Typ:</li>
-                    <li class="list-group-item list-group-item-info"><input type="text" name="Type" value=@Html.DisplayFor(m => m.Type)></li>
-                    <li class="list-group-item">Jag är:</li>
-                    <li class="list-group-item list-group-item-info">
-                        <input type="text" name="Gender" value=@Html.DisplayFor(m => m.Gender)>
-                    </li>
-                    <li class="list-group-item">Intresserad av: </li>
-                    <li class="list-group-item list-group-item-info">
-                        <input type="text" name="InterestedIn" value=@Html.DisplayFor(m => m.InterestedIn)>
-                    </li>
-                    <li class="list-group-item list-group-item-info">
-                        <div class="radio">
-                            @if(Model.Private == false)
-                            {
-                                <label><input type="checkbox" name="Private" id="Private">Gömd profil</label>
-                            } else
-                            {
-                                <label><input type="checkbox" name="Private" checked>Gömd profil</label>
-                            }
+                    <label><input type="checkbox" name="Private" id="Private">Gömd profil</label>
+                } else
+                {
+                    <label><input type="checkbox" name="Private" checked>Gömd profil</label>
+                }*@
+                        <label>Privat profil @Html.EditorFor(m => m.User.Private)</label>
 
-                        </div>
-                    </li>
 
-                </ul>
-                <input type="submit" value="Ändra">
-                }
+                    </div>
+                </li>
+
+            </ul>
+            <input type="submit" value="Ändra">
+}
 
                 <br />
                 <h4>Nytt inlägg:</h4>
-                <form role="form">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="3" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-success">Skicka</button>
-                </form>
+                <script>
+                function addPost() {
+                    var Text = $('#Text').val();
+                    var Sender = '@User.Identity.Name';
+                    var Reciever = '@User.Identity.Name';
+                    var newPost = {FromUsername: Sender, ToUsername: Reciever, Text: Text};
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("Post","Post", new { httproute = "" })',
+                            data: JSON.stringify(newPost),
+                            contentType:'application/json',
+                            datatype: 'json',
+                            success: function (data) {
+                                $('#Text').val('');
+                                location.reload();
+                            }
+                        })
+                    };
+                </script>
+
+                <div class="form-group">
+
+                    <textarea id="Text" rows="3" cols="500"></textarea><br />
+                    <input type="button" value="Skicka inlägg" onclick="addPost()" />
+                </div>
 
             </div>
 
             <div class="col-sm-6">
-
                 <h4><small><br>INLÄGG</small></h4>
-                <hr>
-                <h2>I Love Food</h2>
-                <h5><span class="glyphicon glyphicon-time"></span> Post by Jane Dane, Sep 27, 2015.</h5>
-                <h5><span class="label label-danger">Food</span> <span class="label label-primary">Ipsum</span></h5><br>
-                <p>Food is my passion. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <br><br>
-
-
-                <hr>
-                <h2>Officially Blogging</h2>
-                <h5><span class="glyphicon glyphicon-time"></span> Post by John Doe, Sep 24, 2015.</h5>
-                <h5><span class="label label-success">Lorem</span></h5><br>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
+                @foreach(var item in Model.Posts)
+                {
+                    <hr>
+                    <h2>@item.From.Firstname @item.From.Lastname</h2>
+                    <h5><span class="glyphicon glyphicon-time"></span>@item.Date </h5>
+                    <p>@item.Text</p>
+                    <br><br>
+                }
 
             </div>
 
@@ -86,20 +100,18 @@
 
                     <div>
                         <input type="file" name="upload" value="Välj bild"/>
-                        <img class="img-rounded img-responsive" src="@Url.Action("Image", new { username = Model.UserName })" />
+                        <img class="img-rounded img-responsive" src="@Url.Action("Image", new { username = Model.User.UserName })" />
                         <input type="submit" value="Byt" />
                     </div>
                 }
                 <label for="Bio">Om mig:</label>
 
                 <div class="panel panel-default sidenav">
-                    <div class="panel-body" id="Bio">@Html.DisplayFor(m => m.Bio)</div>
                     @using (Html.BeginForm("Bio", "Edit", null, FormMethod.Post))
                     {
-                        <input type="text" name="Bio" placeholder="Ändra bio..">
+                        @Html.EditorFor(m => m.User.Bio)
                         <input type="submit" value="Ändra">
                     }
-                    
                 </div>
             </div>
         </div>

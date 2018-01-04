@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-    class Post
+    public class Post
     {
+        public int Id { get; set; }
+        public string Text { get; set; }
+        public ApplicationUser From { get; set; }
+        public ApplicationUser To { get; set; }
+        public DateTime Date { get; set; }
     }
 }
