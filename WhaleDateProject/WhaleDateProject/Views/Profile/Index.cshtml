@@ -18,98 +18,93 @@
             <div class="col-sm-3 sidenav">
                 <h3>@Model.User.Firstname @Model.User.Lastname</h3>
                 @using (Html.BeginForm("Info", "Edit", null, FormMethod.Post))
-                {
-                    <ul class="list-group nav nav-pill nav-stacked">
+    {
+            <ul class="list-group nav nav-pill nav-stacked">
 
-                        <li class="list-group-item">Ålder:</li>
-                        <li class="list-group-item list-group-item-info">
-                            @Html.EditorFor(m => m.User.Age, new { placeholder = "Ålder" })<br />
-                        @Html.ValidationMessageFor(m => m.User.Age)
-                    </li>
-                    <li class="list-group-item">Typ:</li>
-                    <li class="list-group-item list-group-item-info">@Html.EditorFor(m => m.User.Type)</li>
-                    <li class="list-group-item">Jag är:</li>
-                    <li class="list-group-item list-group-item-info">
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.User.Gender, "", new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
-                                @{
-                                    List<SelectListItem> genderListItems = new List<SelectListItem>();
-                                    genderListItems.Add(new SelectListItem
-                                    {
-                                        Text = "Hona",
-                                        Value = "Hona"
-                                    });
-                                    genderListItems.Add(new SelectListItem
-                                    {
-                                        Text = "Hane",
-                                        Value = "Hane",
-                                    });
-                                    genderListItems.Add(new SelectListItem
-                                    {
-                                        Text = "Annan",
-                                        Value = "Annan"
-                                    });
-                                }
+                <li class="list-group-item">Ålder:</li>
+                <li class="list-group-item list-group-item-info">
+                    @Html.EditorFor(m => m.User.Age)<br />
+                    @Html.ValidationMessageFor(m => m.User.Age, "", new { @class = "text-danger" })
+                </li>
+                <li class="list-group-item">Typ:</li>
+                <li class="list-group-item list-group-item-info">
+                    @Html.EditorFor(m => m.User.Type) <br />
+                    @Html.ValidationMessageFor(m => m.User.Type, "", new { @class = "text-danger" })
+                </li>
+                <li class="list-group-item">Jag är:</li>
+                <li class="list-group-item list-group-item-info">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.User.Gender, "", new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @{
+                    List<SelectListItem> genderListItems = new List<SelectListItem>();
+                    genderListItems.Add(new SelectListItem
+                    {
+                        Text = "Hona",
+                        Value = "Hona"
+                    });
+                    genderListItems.Add(new SelectListItem
+                    {
+                        Text = "Hane",
+                        Value = "Hane",
+                    });
+                    genderListItems.Add(new SelectListItem
+                    {
+                        Text = "Annan",
+                        Value = "Annan"
+                    });
+                            }
 
-                                @Html.DropDownListFor(model => model.User.Gender, genderListItems)
-                            </div>
+                            @Html.DropDownListFor(model => model.User.Gender, genderListItems)
                         </div>
-                    </li>
-                    <li class="list-group-item">Intresserad av: </li>
-                    <li class="list-group-item list-group-item-info">
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.User.InterestedIn, "", new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
-                                @{
-                                    List<SelectListItem> listItems = new List<SelectListItem>();
-                                    listItems.Add(new SelectListItem
-                                    {
-                                        Text = "Hona",
-                                        Value = "Hona"
-                                    });
-                                    listItems.Add(new SelectListItem
-                                    {
-                                        Text = "Hane",
-                                        Value = "Hane",
-                                    });
-                                    listItems.Add(new SelectListItem
-                                    {
-                                        Text = "Annan",
-                                        Value = "Annan"
-                                    });
-                                }
+                    </div>
+                </li>
+                <li class="list-group-item">Intresserad av: </li>
+                <li class="list-group-item list-group-item-info">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.User.InterestedIn, "", new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @{
+                    List<SelectListItem> listItems = new List<SelectListItem>();
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Hona",
+                        Value = "Hona"
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Hane",
+                        Value = "Hane",
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Annan",
+                        Value = "Annan"
+                    });
+                            }
 
-                                @Html.DropDownListFor(model => model.User.InterestedIn, listItems)
-                            </div>
+                            @Html.DropDownListFor(model => model.User.InterestedIn, listItems)
                         </div>
-                    </li>
-                    <li class="list-group-item list-group-item-info">
-                        <div class="radio">
-                            @*@if(Model.User.Private == false)
-                                {
-                                    <label><input type="checkbox" name="Private" id="Private">Gömd profil</label>
-                                } else
-                                {
-                                    <label><input type="checkbox" name="Private" checked>Gömd profil</label>
-                                }*@
-                            <label>Privat profil @Html.EditorFor(m => m.User.Private)</label>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-info">
+                    <div class="radio">
+                        <label>Privat profil @Html.EditorFor(m => m.User.Private)</label>
+                    </div>
+                </li>
 
-
-                        </div>
-                    </li>
-
-                </ul>
-                <input type="submit" value="Ändra">
-            }
+            </ul>
+            <input type="submit" value="Ändra">
+}
 
                 <br />
                 <h4>Nytt inlägg:</h4>
+                @*@Html.ValidationMessageFor(m => m.post.Text)*@
                 <script>
                 function addPost() {
                     var Text = $('#Text').val();
                     var Sender = '@User.Identity.Name';
-                    var Reciever = '@User.Identity.Name';
+                    var Reciever = '@Model.User.UserName';
                     var newPost = {FromUsername: Sender, ToUsername: Reciever, Text: Text};
                         $.ajax({
                             type: 'POST',
@@ -129,12 +124,14 @@
 
                     <textarea id="Text" rows="3" cols="500"></textarea><br />
                     <input type="button" value="Skicka inlägg" onclick="addPost()" />
+
                 </div>
 
             </div>
 
             <div class="col-sm-6">
                 <h4><small><br>INLÄGG</small></h4>
+                
                 @foreach (var item in Model.Posts)
                 {
                     <hr>

@@ -18,9 +18,12 @@ namespace Data.Models
         public string Bio { get; set; }
 
         [Display(Name = "Ålder")]
-        [Range(0, 1000, ErrorMessage = "Fyll i din ålder")]
+        [Range(1, 1000, ErrorMessage = "Ålder kan bara vara siffror")]
+        [Required(ErrorMessage = "Ålder måste fyllas i")]
         public string Age { get; set; }
 
+        [Display(Name = "Typ")]
+        [Required(ErrorMessage = "Typ av val krävs")]
         public string Type { get; set; }
 
         public string Gender { get; set; }
