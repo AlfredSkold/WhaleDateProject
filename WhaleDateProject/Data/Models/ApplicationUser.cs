@@ -4,18 +4,21 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System;
 
 namespace Data.Models
 {
 
     public class ApplicationUser : IdentityUser
     {
-        
+
         public string Firstname { get; set; }
 
         public string Lastname { get; set; }
         public string Bio { get; set; }
 
+        [Display(Name = "No Of Children")]
+        [Range(0, 15, ErrorMessage = "FEL SOM FAN ")]
         public string Age { get; set; }
 
         public string Type { get; set; }
