@@ -41,5 +41,16 @@ namespace Data
             }
             return i;
         }
+
+        public static bool isLoggedIn(string ThisUser)
+        {
+            if(ThisUser != null)
+            {
+                return false;
+            } else
+            {
+                return true;
+            }
+        }
     }
 }

@@ -35,14 +35,8 @@ namespace WhaleDateProject.Controllers
             else
             {
                 ApplicationUser user = db.Users.Single(x => x.UserName == username);
-                var posts = db.Posts.Include(c => c.From).Where(x => x.To.UserName == username).ToList().OrderByDescending(t => t.Date);
-
-                //ApplicationUser fakeUser = db.Users.Single(x => x.Firstname == "valFörnamn5");
-
-                //Post post = new Post { From = fakeUser, To = user, Text = "TJABBBABJABETJTEJHRJERHJAHRJA", Date = DateTime.Now };
-
-                //db.Posts.Add(post);
-                //db.SaveChanges();
+                var posts = db.Posts.Include(c => c.From).Where(x => x.To.UserName == username).ToList();
+                
 
                 ProfileViewModel ViewModel = new ProfileViewModel { User = user, Posts = posts };
                 

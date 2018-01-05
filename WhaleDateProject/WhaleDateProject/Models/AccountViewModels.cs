@@ -4,17 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WhaleDateProject.Models
 {
-    public class ExternalLoginConfirmationViewModel
-    {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-    }
-
-    public class ExternalLoginListViewModel
-    {
-        public string ReturnUrl { get; set; }
-    }
 
     public class SendCodeViewModel
     {
@@ -40,13 +29,6 @@ namespace WhaleDateProject.Models
         public bool RememberMe { get; set; }
     }
 
-    public class ForgotViewModel
-    {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-    }
-
     public class LoginViewModel
     {
         [Required]
@@ -65,33 +47,34 @@ namespace WhaleDateProject.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Email måste fyllas i")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Lösenord måste fyllas i")]
+        [StringLength(100, ErrorMessage = "{0} Måste vara minst {2} tecken långt.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "he")]
+        [Compare("Password", ErrorMessage = "Lösenorden matchar inte")]
         [Display(Name = "Password")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Förnamn måste fyllas i")]
         public string Firstname { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Efternamn måste fyllas i")]
         public string Lastname { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Typ av val måste fyllas i")]
         public string Type { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Ålder måste fyllas i")]
+        [Range(1, 1000, ErrorMessage = "Ålder kan bara vara siffror")]
         public string Age { get; set; }
 
         [Required]
@@ -103,32 +86,5 @@ namespace WhaleDateProject.Models
 
     }
 
-    public class ResetPasswordViewModel
-    {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
-
-        public string Code { get; set; }
-    }
-
-    public class ForgotPasswordViewModel
-    {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-    }
+    
 }

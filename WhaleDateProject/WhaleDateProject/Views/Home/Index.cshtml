@@ -1,4 +1,4 @@
-﻿
+﻿@using Data;
 @model IEnumerable<Data.Models.ApplicationUser>
 @{
     ViewBag.Title = "Home Page";
@@ -7,25 +7,41 @@
 <div class="jumbotron">
     <h1>@Data.Internationalization.HomeTexts.RightChoice</h1>
     <p class="lead">@Data.Internationalization.HomeTexts.HeadText</p>
-    <p><a href="@Url.Action("Register", "Account")" class="btn btn-primary btn-lg">@Data.Internationalization.HomeTexts.RegisterText &raquo;</a></p>
+    @if (!Request.IsAuthenticated)
+    {
+        <p><a href="@Url.Action("Register", "Account")" class="btn btn-primary btn-lg">@Data.Internationalization.HomeTexts.RegisterText &raquo;</a></p>
+    }
+
 </div>
 <div class="row">
-    @foreach (var item in Model)
+    @if (Model.FirstOrDefault() != null && Model.Count() >= 3)
     {
-        var userProfile = item.Id;
+        foreach (var item in Model)
+        {
+            var userProfile = item.Id;
 
+            <div class="col-sm-4">
+                <div class="col-sm-10">
+                    <a href="@Url.Action("Profile", "Profile", routeValues: new { username = item.UserName })">
+                        <img class="img-rounded img-responsive" src="@Url.Action("Image", "Profile", new { username = item.UserName })" />
+                    </a>
+                </div>
+                <div class="col-sm-10">
+                    <h4>@item.Firstname @item.Lastname</h4>
+                    <p>@item.Firstname @Data.Internationalization.HomeTexts.ExampleProfileText @item.Firstname!</p>
+                    @Html.ActionLink(item.Firstname + "s " + @Data.Internationalization.HomeTexts.Profile, "Profile", "Profile", routeValues: new { username = item.UserName }, htmlAttributes: new { title = "Profil" })
+
+                </div>
+            </div>
+        }
+    }
+    else
+    {
         <div class="col-sm-4">
             <div class="col-sm-10">
-                <a href="@Url.Action("Profile", "Profile", routeValues: new { username = item.UserName })">
-                    <img class="img-rounded img-responsive" src="@Url.Action("Image", "Profile", new { username = item.UserName })" />
-                </a>
-            </div>
-            <div class="col-sm-10">
-                <h4>@item.Firstname @item.Lastname</h4>
-                <p>@item.Firstname @Data.Internationalization.HomeTexts.ExampleProfileText @item.Firstname!</p>
-                @Html.ActionLink(item.Firstname + "s " + @Data.Internationalization.HomeTexts.Profile, "Profile", "Profile", routeValues: new { username = item.UserName }, htmlAttributes: new { title = "Profil" })
-
+                <h4>Finns inte tillräckligt med användare för att visa några här.</h4>
             </div>
         </div>
     }
+
 </div>

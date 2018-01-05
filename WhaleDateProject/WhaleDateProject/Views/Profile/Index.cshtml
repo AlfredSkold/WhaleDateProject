@@ -132,7 +132,7 @@
             <div class="col-sm-6">
                 <h4><small><br>INLÄGG</small></h4>
                 
-                @foreach (var item in Model.Posts)
+                @foreach (var item in Model.Posts.OrderByDescending(t => t.Id))
                 {
                     <hr>
                     <h2>@item.From.Firstname @item.From.Lastname</h2>

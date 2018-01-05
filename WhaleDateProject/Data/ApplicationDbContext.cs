@@ -33,39 +33,60 @@ namespace Data
 
         public List<ApplicationUser> randomizeUser()
         {
-            List<ApplicationUser> RandomUsers()
+            List<ApplicationUser> Empty = new List<ApplicationUser>();
+            try
             {
-                var list = new List<ApplicationUser>();
-                var randomusers = Users.OrderBy(x => Guid.NewGuid()).ToList();
-                list.Add(randomusers[0]);
-                list.Add(randomusers[1]);
-                list.Add(randomusers[2]);
+                List<ApplicationUser> RandomUsers()
+                {
+                    var list = new List<ApplicationUser>();
+                    var randomusers = Users.OrderBy(x => Guid.NewGuid()).ToList();
+                    list.Add(randomusers[0]);
+                    list.Add(randomusers[1]);
+                    list.Add(randomusers[2]);
 
-                return list;
+                    return list;
 
+                }
+                return RandomUsers();
             }
-            return RandomUsers();
+            catch
+            {
+                return Empty;
+            }
+            
         }
 
     }
     public class MyInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
-        protected override void Seed(ApplicationDbContext context)
-        {
-            var store = new UserStore<ApplicationUser>(context);
+        //protected override void Seed(ApplicationDbContext context)
+        //{
+        //    var store = new UserStore<ApplicationUser>(context);
 
-            var userManager = new ApplicationUserManager(store);
+        //    var userManager = new ApplicationUserManager(store);
 
-            for (int i = 0; i < 10; i++)
-            {
-                var user = new ApplicationUser { Firstname = "valFörnamn" + i, Lastname = "valEfternamn" + i, UserName = $"val{i}@val.se", Email = $"val{i}@val.se",
-                    Gender = "Hane", InterestedIn = "Other", Type = "Finval", Age = "666", Private = false, ProfilePhoto = File.ReadAllBytes("val.jpg"), ContentType ="Test"};
-                userManager.CreateAsync(user, "User1!").Wait();
-            }
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        var user = new ApplicationUser
+        //        {
+        //            Firstname = "valFörnamn" + i,
+        //            Lastname = "valEfternamn" + i,
+        //            UserName = $"val{i}@val.se",
+        //            Email = $"val{i}@val.se",
+        //            Gender = "Hane",
+        //            InterestedIn = "Other",
+        //            Type = "Finval",
+        //            Age = "666",
+        //            Private = false,
+        //            ProfilePhoto = File.ReadAllBytes("val.jpg"),
+        //            ContentType = "Test"
+        //        };
+        //        userManager.CreateAsync(user, "User1!").Wait();
+        //    }
 
 
-            base.Seed(context);
-        }
+        //    base.Seed(context);
+        //}
     }
 
 }

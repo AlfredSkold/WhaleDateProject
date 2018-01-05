@@ -40,13 +40,6 @@ namespace WhaleDateProject.Controllers
             thisUser.Gender = user.Gender;
             thisUser.InterestedIn = user.InterestedIn;
             thisUser.Private = user.Private;
-            //if (Private== true)
-            //{
-            //    thisUser.Private = true;
-            //} else
-            //{
-            //    thisUser.Private = false;
-            //}
 
             db.SaveChanges();
 
