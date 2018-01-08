@@ -5,29 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace WhaleDateProject.Models
 {
 
-    public class SendCodeViewModel
-    {
-        public string SelectedProvider { get; set; }
-        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
-        public string ReturnUrl { get; set; }
-        public bool RememberMe { get; set; }
-    }
-
-    public class VerifyCodeViewModel
-    {
-        [Required]
-        public string Provider { get; set; }
-
-        [Required]
-        [Display(Name = "Code")]
-        public string Code { get; set; }
-        public string ReturnUrl { get; set; }
-
-        [Display(Name = "Remember this browser?")]
-        public bool RememberBrowser { get; set; }
-
-        public bool RememberMe { get; set; }
-    }
+    
 
     public class LoginViewModel
     {
@@ -40,20 +18,18 @@ namespace WhaleDateProject.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Email måste fyllas i")]
-        [EmailAddress]
+        [Required(ErrorMessage = "Email måste fyllas i.")]
+        [EmailAddress(ErrorMessage = "Ogiltig email.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Lösenord måste fyllas i")]
         [StringLength(100, ErrorMessage = "{0} Måste vara minst {2} tecken långt.", MinimumLength = 6)]
+        [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$", ErrorMessage = "Lösenordet måste innehålla en liten/stor bokstav och en siffra.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

@@ -1,5 +1,4 @@
 ﻿@model WhaleDateProject.Models.RegisterViewModel
-@using WhaleDateProject.Models
 @{
 
     ViewBag.Title = "Register";
@@ -30,6 +29,7 @@
         @Html.LabelFor(m => m.ConfirmPassword, "Lösenord", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger"})
         </div>
     </div>
     <div class="form-group">

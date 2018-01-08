@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,13 +17,14 @@ namespace WhaleDateProject.Controllers
 
         public ActionResult Search(string Searchstring)
         {
+            var FoundProfiles = new List<ApplicationUser>();
             if(Searchstring != "")
             {
-                var FoundProfiles = db.Users.Where(c => (c.Firstname.Contains(Searchstring) || c.Lastname.Contains(Searchstring)) && c.Private == false).ToList();
+                FoundProfiles = db.Users.Where(c => (c.Firstname.Contains(Searchstring) || c.Lastname.Contains(Searchstring)) && c.Private == false).ToList();
                 return View(FoundProfiles);
             }
 
-            return View();
+            return View(FoundProfiles);
         }
     }
 }
